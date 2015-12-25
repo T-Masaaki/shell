@@ -1,7 +1,18 @@
 #!/bin/sh
 echo "start process"
 yum update -y
-yum install -y git gcc gcc-c++ openssl-devel readline-devel
+yum install -y gcc gcc-c++ openssl-devel readline-devel wget curl-devel expat-devel gettext-devel zlib-devel perl-ExtUtils-MakeMaker
+
+echo "install latest git"
+yum remove -y git
+wget https://www.kernel.org/pub/software/scm/git/git-2.2.0.tar.gz
+tar -zxf git-2.2.0.tar.gz
+cd git-2.2.0
+make prefix=/usr/local all
+make prefix=/usr/local install
+git --version
+cd ..
+rm -rf git-2.2.0*
 
 echo "installing rbenv"
 git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
